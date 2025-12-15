@@ -1,4 +1,5 @@
 ﻿import logging
+import asyncio
 import aiohttp
 import os
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
@@ -261,26 +262,20 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         parse_mode='Markdown'
     )
 
-def main():
-    """Запуск бота"""
-
-    # Токен берётся из переменной окружения (Render → Environment Variables)
+async def main():
     TOKEN = os.environ.get("BOT_TOKEN")
-
     if not TOKEN:
         raise RuntimeError("Переменная окружения BOT_TOKEN не задана")
 
-    # Создаём приложение
     application = Application.builder().token(TOKEN).build()
-
-    # Регистрируем обработчики
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("help", help_command))
     application.add_handler(CallbackQueryHandler(button_handler))
 
-    # Запускаем бота (polling подходит для Render)
     logger.info("Бот отдела кадров запущен...")
-    application.run_polling(allowed_updates=Update.ALL_TYPES)
 
-if __name__ == '__main__':
-    main()
+    # Запуск polling через asyncio
+    await application.run_polling(allowed_updates=Update.ALL_TYPES)
+
+if __name__ == "__main__":
+    asyncio.run(main())
