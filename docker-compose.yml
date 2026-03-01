@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  usla-bot:
+    build: .
+    container_name: usla_hr_bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      # Данные отзывов хранятся на хосте — не теряются при пересборке контейнера
+      - ./data:/app/data
+    environment:
+      - FEEDBACK_FILE=/app/data/feedbacks.json
