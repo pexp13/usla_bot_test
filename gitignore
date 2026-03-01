@@ -1,0 +1,48 @@
+# Переменные окружения — НИКОГДА не коммитить!
+.env
+
+# Данные отзывов пользователей — не публиковать!
+feedbacks.json
+data/feedbacks.json
+# Но саму папку data оставляем в репозитории
+!data/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+lib/
+lib64/
+
+# Виртуальное окружение
+venv/
+.venv/
+env/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Логи
+*.log
+logs/
+
+# Docker
+*.env.local
